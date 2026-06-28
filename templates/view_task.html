@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="task-page-header">
+
+    <div>
+        <h1>{{ title }} Tasks</h1>
+        <p>Manage and track your tasks.</p>
+    </div>
+
+    <a href="/task/create/personal" class="task-create-btn">
+        + New Task
+    </a>
+
+</div>
+
+<div class="task-grid">
+
+{% for task in tasks %}
+
+<a href="/task/details/{{ task['id'] }}?next={{ request.path }}" class="task-card-link">
+
+    <div class="task-card">
+
+        <h3>{{ task['title'] }}</h3>
+
+        <p class="task-meta">
+            {{ task['status'] }} • {{ task['priority'] }}
+        </p>
+
+        <div class="task-date">
+            {{ task['created_at'] }}
+        </div>
+
+    </div>
+
+</a>
+
+{% else %}
+
+<div class="task-empty">
+
+    <h3>{{ empty_title }}</h3>
+
+    <p>{{ empty_message }}</p>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

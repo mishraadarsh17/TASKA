@@ -1,0 +1,15 @@
+# Virtual Environment
+taskenv/
+
+# Environment Variables
+.env
+
+# SQLite Database
+*.db
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/

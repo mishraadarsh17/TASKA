@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taska</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <button id="menu-btn">☰</button>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-header">
+                <h1>TASKA</h1>
+            </div>
+            <form action="/task/search" class="search-form">
+                <input type="text" name="query" placeholder="Search tasks...">
+
+                <button type="submit">
+                    🔍
+                </button>
+            </form>
+        </div>
+        <div class="sidebar-menu">
+            <a href="/dashboard" class="{% if request.path == '/dashboard' %}active{% endif %}"
+                style="margin-bottom:10px;font-size:16px; margin-left: -10px;color: white;">
+                <h3>⛶ Dashboard</h3>
+            </a>
+
+            <h3>🗁 Projects</h3>
+
+            <a href="/project/create" class="{% if request.path == '/project/create' %}active{% endif %}">+Create
+                Project</a>
+            <a href="/project/personal" class="{% if request.path == '/project/personal' %}active{% endif %}">My
+                Projects</a>
+            <a href="/project/associate"
+                class="{% if request.path == '/project/associate' %}active{% endif %}">Associated
+                Projects</a>
+
+            <h3>✓ Tasks</h3>
+
+            <a href="/task/create/personal"
+                class="{% if request.path == '/task/create/personal' %}active{% endif %}">+Create Task</a>
+            <a href="/task/recents" class="{% if request.path == '/task/recents' %}active{% endif %}">Recent Tasks</a>
+            <a href="/task/personal" class="{% if request.path == '/task/personal' %}active{% endif %}">Personal
+                Tasks</a>
+            <a href="/task/assigned" class="{% if request.path == '/task/assigned' %}active{% endif %}">Assigned
+                Tasks</a>
+
+            <details>
+
+                <summary>Filters</summary>
+                <a href="/task/filter?status=Pending">Pending</a>
+                <a href="/task/filter?status=Completed">Completed</a>
+                <a href="/task/filter?status=In Progress">In Progress</a>
+                <a href="/task/filter?status=On Hold">On Hold</a>
+                <a href="/task/filter?priority=High">High Priority</a>
+                <a href="/task/filter?priority=Medium">Medium Priority</a>
+                <a href="/task/filter?priority=Low">Low Priority</a>
+            </details>
+        </div>
+        <div class="sidebar-bottom">
+            <a href="/logout">↩ Logout</a>
+        </div>
+
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="content">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="flash-message" class="flash">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="confirm-overlay" class="confirm-overlay">
+
+        <div class="confirm-modal">
+
+            <h2>Delete Item</h2>
+
+            <p id="confirm-text">
+                Are you sure you want to delete this item?
+            </p>
+
+            <div class="confirm-actions">
+
+                <button type="button" class="cancel-btn" onclick="closeConfirm()">
+                    Cancel
+                </button>
+
+                <a id="confirm-delete-btn" href="#" class="delete-btn">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        const flash = document.getElementById("flash-message");
+
+        if (flash) {
+            setTimeout(() => {
+                flash.style.opacity = "0";
+                flash.style.transform = "translateY(-10px)";
+
+                setTimeout(() => {
+                    flash.remove();
+                }, 300);
+
+            }, 3000);
+        }
+    </script>
+
+    <script>
+        const btn = document.getElementById("menu-btn");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        btn.addEventListener("click", () => {
+            sidebar.classList.toggle("show");
+            overlay.classList.toggle("show");
+        });
+
+        overlay.addEventListener("click", () => {
+            sidebar.classList.remove("show");
+            overlay.classList.remove("show");
+        });
+    </script>
+    <script>
+
+        const confirmOverlay = document.getElementById("confirm-overlay");
+        const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
+        const confirmText = document.getElementById("confirm-text");
+
+        document.querySelectorAll(".confirm-delete").forEach(button => {
+
+            button.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                confirmDeleteBtn.href = this.dataset.url;
+                confirmText.textContent = this.dataset.message;
+
+                confirmOverlay.classList.add("show");
+
+            });
+
+        });
+
+        function closeConfirm() {
+
+            confirmOverlay.classList.remove("show");
+
+        }
+
+        confirmOverlay.addEventListener("click", function (e) {
+
+            if (e.target === confirmOverlay) {
+
+                closeConfirm();
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

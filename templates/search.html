@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="search-page">
+
+    <div class="page-header">
+        <h1>Search Results</h1>
+        <p>Showing results for "<strong>{{ query }}</strong>"</p>
+    </div>
+
+    <!-- Projects -->
+
+    <section class="search-section">
+
+        <h2>Projects</h2>
+
+        {% if projects %}
+
+            {% for project in projects %}
+
+            <a href="/project/detailes/{{ project['id'] }}" class="result-link">
+
+                <div class="result-card">
+
+                    <h3>{{ project['name'] }}</h3>
+
+                    <p>{{ project['description'] }}</p>
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">No projects found.</p>
+
+        {% endif %}
+
+    </section>
+
+    <!-- Tasks -->
+
+    <section class="search-section">
+
+        <h2>Tasks</h2>
+
+        {% if tasks %}
+
+            {% for task in tasks %}
+
+            <a href="/task/details/{{ task['id'] }}" class="result-link">
+
+                <div class="result-card">
+
+                    <h3>{{ task['title'] }}</h3>
+
+                    <p>{{ task['description'] }}</p>
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">No tasks found.</p>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

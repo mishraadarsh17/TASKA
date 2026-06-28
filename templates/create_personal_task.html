@@ -1,0 +1,107 @@
+
+
+{% extends "layout.html" %}
+
+{% block content %}
+<a href="{{ request.referrer }}" class="back-link">
+    ← Back
+</a>
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>Create Personal Task</h1>
+
+            <p>
+                Create and manage your personal work.
+            </p>
+
+        </div>
+
+        <form action="/task/create/personal" method="post">
+
+            <div class="form-group">
+
+                <label>Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Task title"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    rows="5"
+                    placeholder="Task description"
+                ></textarea>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Status</label>
+
+                    <select name="status">
+
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Completed">Completed</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Priority</label>
+
+                    <select name="priority">
+
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Due Date</label>
+
+                <input
+                    type="date"
+                    name="due_date"
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Create Task
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

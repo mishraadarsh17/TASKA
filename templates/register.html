@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | TASKA</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+
+<body>
+
+  <div class="auth-container">
+
+    <div class="auth-left">
+
+      <h1>TASKA</h1>
+
+      <h2>Create Account ✨</h2>
+
+      <p>
+        Join TASKA and start managing your projects,
+        tasks and team collaboration efficiently.
+      </p>
+
+    </div>
+
+    <div class="auth-card">
+
+      <h2>Register</h2>
+
+      <p>Create your account to get started.</p>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div id="flash-message" class="flash">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <form action="/register" method="post">
+
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+
+        <button type="submit">
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="auth-footer">
+        Already have an account?
+        <a href="/login">Login</a>
+      </div>
+
+    </div>
+
+  </div>
+  <script>
+    const flash = document.getElementById("flash-message");
+
+    if (flash) {
+      setTimeout(() => {
+        flash.style.opacity = "0";
+        flash.style.transform = "translateY(-10px)";
+
+        setTimeout(() => {
+          flash.remove();
+        }, 300);
+
+      }, 3000);
+    }
+  </script>
+</body>
+
+</html>

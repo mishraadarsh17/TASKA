@@ -1,0 +1,70 @@
+
+
+{% extends "layout.html" %}
+
+{% block content %}
+<a href="{{ request.referrer }}" class="back-link">
+    ← Back
+</a>
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>Edit Project</h1>
+
+            <p>
+                Update your project information and keep your workspace organized.
+            </p>
+
+        </div>
+
+        <form action="/project/edit/{{ project['id'] }}" method="post">
+
+            <div class="form-group">
+
+                <label>
+                    Project Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ project['name'] }}"
+                    placeholder="Enter project name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    rows="5"
+                    placeholder="Describe your project"
+                    required
+                >{{ project['description'] }}</textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Update Project
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

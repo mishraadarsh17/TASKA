@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <h1>Dashboard</h1>
+<p>
+    Manage your projects, tasks and team collaboration.
+</p>
+<div class="dashboard-grid">
+    <div class="card projects-card">
+        <span class="card-title">Projects</span>
+        <span class="card-count">{{ total_project }}</span>
+    </div>
+    <div class="card total-card">
+        <span class="card-title">Total Tasks</span>
+        <span class="card-count">{{ total_task_number }}</span>
+    </div>
+
+    <div class="card personal-card">
+        <span class="card-title">Personal Tasks</span>
+        <span class="card-count">{{ total_personal_task }}</span>
+    </div>
+
+    <div class="card assigned-card">
+        <span class="card-title">Assigned Tasks</span>
+        <span class="card-count">{{ total_assigned_task }}</span>
+    </div>
+
+    <div class="card pending-card">
+        <span class="card-title">Pending Tasks</span>
+        <span class="card-count">{{ total_pending_task }}</span>
+    </div>
+
+    <div class="card completed-card">
+        <span class="card-title">Completed Tasks</span>
+        <span class="card-count">{{ total_completed_task }}</span>
+    </div>
+</div>
+<h2>Recent Tasks</h2>
+{% for task in my_recent_tasks[:5] %}
+<div class="task-card">
+    <a href="/task/details/{{task['id']}}">
+        {{task['title']}}
+    </a>
+</div>
+<br>
+{% endfor %} -->
+
+
+
+
+<div class="dashboard-header">
+
+    <div>
+        <h1>Welcome, {{username}} 🙏</h1>
+        <p>Manage your projects, tasks and team collaboration.</p>
+    </div>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+        <span class="card-title">Projects</span>
+        <span class="card-count">{{ total_project }}</span>
+    </div>
+
+    <div class="card">
+        <span class="card-title">Total Tasks</span>
+        <span class="card-count">{{ total_task_number }}</span>
+    </div>
+
+    <div class="card">
+        <span class="card-title">Personal Tasks</span>
+        <span class="card-count">{{ total_personal_task }}</span>
+    </div>
+
+    <div class="card">
+        <span class="card-title">Assigned Tasks</span>
+        <span class="card-count">{{ total_assigned_task }}</span>
+    </div>
+
+    <div class="card">
+        <span class="card-title">Pending Tasks</span>
+        <span class="card-count">{{ total_pending_task }}</span>
+    </div>
+
+    <div class="card">
+        <span class="card-title">Completed Tasks</span>
+        <span class="card-count">{{ total_completed_task }}</span>
+    </div>
+
+</div>
+
+<h2 class="recent-heading">Recent Tasks</h2>
+
+{% if my_recent_tasks %}
+
+{% for task in my_recent_tasks[:5] %}
+
+<a href="/task/details/{{ task['id'] }}" class="dashboard-task-link">
+
+    <div class="dashboard-task-card">
+
+        <span class="dashboard-task-title">
+            {{ task['title'] }}
+        </span>
+
+        <span class="dashboard-task-status">
+            {{ task['status'] }}
+        </span>
+
+    </div>
+
+</a>
+
+{% endfor %}
+
+{% else %}
+
+<div class="dashboard-empty">
+
+    <h3>No Recent Tasks</h3>
+
+    <p>Create or update a task to see activity here.</p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

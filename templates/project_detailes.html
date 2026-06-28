@@ -1,0 +1,233 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<a href="{{ request.referrer }}" class="back-link">
+    ← Back
+</a>
+
+<!-- PROJECT INFO -->
+
+<div class="project-info-card">
+
+    <div class="project-top">
+
+        <div class="project-left">
+
+            <h1>{{ project['name'] }}</h1>
+
+            <p>
+                Created by <strong>{{ project['owner_name'] }}</strong>
+            </p>
+
+            <p>{{ project['description'] }}</p>
+
+        </div>
+
+        {% if session["user_id"] == project["owner_id"] %}
+
+        <div class="project-actions">
+
+            <a href="/task/create/{{project['id']}}">
+                + Create Task
+            </a>
+
+            <a href="/project/edit/{{project['id']}}">
+                Edit Project
+            </a>
+
+            <a href="#"
+            class="confirm-delete"
+            data-url="/project/delete/{{ project['id'] }}"
+            data-message="Are you sure you want to delete this project?">
+            Delete Project
+            </a>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- MEMBERS -->
+
+<div class="members-card">
+
+    <div class="members-layout">
+
+        <div>
+
+            <h2>Members</h2>
+
+            {% if session["user_id"] == project["owner_id"] %}
+
+            <form
+                action="/project/add/member/{{project['id']}}"
+                method="post"
+                class="member-form"
+            >
+
+                <input
+                    type="text"
+                    name="member_username"
+                    placeholder="Enter username"
+                >
+
+                <button type="submit">
+                    Add Member
+                </button>
+
+            </form>
+
+            {% endif %}
+
+        </div>
+
+        <div>
+
+            <h3>Name</h3>
+
+            <div class="members-list">
+
+                {% for member in members %}
+
+                <div class="member-row">
+
+                    <span>{{ member["username"] }}</span>
+
+                    {% if session["user_id"] == project["owner_id"] %}
+
+                    <a href="/project/remove/member/{{project['id']}}/{{member['id']}}">
+                        Remove
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+                {% else %}
+
+                <p>No Members Yet. Please Add New Member </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- TASKS -->
+
+<div class="tasks-card">
+
+    <div class="tasks-header">
+
+        <h2>Tasks</h2>
+
+        <form
+            action="/project/detailes/{{project['id']}}"
+            method="get"
+            class="filter-form"
+        >
+
+            <select name="status">
+
+                <option value="">Status</option>
+
+                <option value="Pending">Pending</option>
+
+                <option value="In Progress">In Progress</option>
+
+                <option value="On Hold">On Hold</option>
+
+                <option value="Completed">Completed</option>
+
+            </select>
+
+            <select name="priority">
+
+                <option value="">Priority</option>
+
+                <option value="Low">Low</option>
+
+                <option value="Medium">Medium</option>
+
+                <option value="High">High</option>
+
+            </select>
+
+            <button type="submit">
+                Apply
+            </button>
+
+        </form>
+
+    </div>
+
+    {% for task in tasks %}
+
+    <div class="task-card">
+
+        <div class="task-title">
+            {{ task['title'] }}
+        </div>
+
+        <div class="task-desc">
+            {{ task['description'] }}
+        </div>
+
+        <div class="task-meta">
+
+            <span>
+                <strong>Status:</strong>
+                {{ task['status'] }}
+            </span>
+
+            <span>
+                <strong>Priority:</strong>
+                {{ task['priority'] }}
+            </span>
+
+            <span>
+                <strong>Assigned:</strong>
+
+                {% if task['assigned_username'] %}
+                    {{ task['assigned_username'] }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+            </span>
+
+        </div>
+
+        <div class="task-actions">
+             {% if user_id==task['assigned_to'] or user_id==task['created_by'] %}
+            <a href="/task/update/{{task['id']}}">
+                Update
+            </a>
+            {% if user_id==task['created_by'] %}
+            <a href="#"
+            class="confirm-delete"
+            data-url="/task/delete/{{ task['id'] }}"
+            data-message="Are you sure you want to delete this task?">
+            Delete
+            </a>
+            {%endif%}
+            {%endif%}
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <p>No Tasks Found. Please Add New Task</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<a href="{{ request.referrer }}" class="back-link">
+    ← Back
+</a>
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-header">
+
+            <h1>Create Project</h1>
+
+            <p>
+                Create a new workspace and start collaborating with your team.
+            </p>
+
+        </div>
+
+        <form action="/project/create" method="post">
+
+            <div class="form-group">
+
+                <label>
+                    Project Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter project name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    placeholder="Describe your project"
+                    rows="5"
+                    required
+                ></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Create Project
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
