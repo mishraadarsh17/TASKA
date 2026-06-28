@@ -12,6 +12,7 @@ app=Flask(__name__)
 app.register_blueprint(auth_bp)
 app.register_blueprint(project_bp)
 app.register_blueprint(task_bp)
+import init_db
 app.secret_key = os.getenv("SECRET_KEY")
 @app.route("/")
 @login_required
