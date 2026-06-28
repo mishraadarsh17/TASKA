@@ -2,6 +2,8 @@
 
 A modern task and project management web application built with Flask. TASKA helps users organize personal tasks, collaborate on projects, assign work to team members, and track progress through a clean, responsive interface.
 
+[🌐 Live Demo] [⭐ Star] [🐍 Python] [⚡ Flask] [🗄 SQLite] [☁️ Render]
+
 🌐 **Live Demo:** https://taska-r202.onrender.com
 
 ---
@@ -171,6 +173,10 @@ http://127.0.0.1:5000
 ### Projects
 
 ![Projects](screenshots/create-project.png)
+
+### Create-Tasks
+
+![Create-Tasks](screenshots/create-task.png)
 
 ### Tasks
 
