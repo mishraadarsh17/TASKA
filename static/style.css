@@ -263,13 +263,13 @@ summary:hover {
 .flash {
     /* position: fixed; */
 
-    top: 20px;
+    /* top:0px; */
     right: 30px;
 
     align-items: center;
     text-align: center;
     padding: -2px;
-    ;
+    
 
     border-radius: 5px;
 
@@ -483,7 +483,10 @@ summary:hover {
         overflow-x:hidden;
 
     }
-
+    .flash{
+        padding-bottom: 2px;
+        padding-top: px;
+    }
     /* DASHBOARD */
 
     .dashboard-header h1 {
@@ -1899,8 +1902,6 @@ summary:hover {
 
     flex:1;
 
-    /* min-width:0px; */
-
     text-align:center;
 
     padding:12px;
@@ -1928,7 +1929,7 @@ summary:hover {
 .start-btn.secondary{
 
     background:transparent;
-
+    
 }
 
 .getting-started-tip{
@@ -1975,7 +1976,7 @@ summary:hover {
     
 
     .dashboard-header{
-        margin-top:-44px;
+        margin-top:-35px;
     }
 
 }
