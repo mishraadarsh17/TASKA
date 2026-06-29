@@ -27,6 +27,7 @@ def project_details(project_id):
     user_id=session["user_id"]
     status=request.args.get("status","").strip()
     priority=request.args.get("priority","").strip()
+    next_page = request.args.get("next", "/project/personal")
     project=get_project_by_id(project_id)
     if not project:
         flash("project not found")
@@ -36,7 +37,7 @@ def project_details(project_id):
         return redirect("/")
     tasks=get_project_task(project_id,status,priority)
     members=get_project_members(project_id)
-    return render_template("project_detailes.html",project=project,tasks=tasks,members=members,user_id=user_id)
+    return render_template("project_detailes.html",project=project,tasks=tasks,members=members,user_id=user_id,next_page=next_page)
 
 @project_bp.route("/add/member/<int:project_id>",methods=["GET","POST"])
 @login_required
@@ -96,6 +97,7 @@ def delete_prj(project_id):
 @login_required
 def edit_prj(project_id):
     user_id=session["user_id"]
+    next_page = request.args.get("next", "/project/personal")
     project=get_project_by_id(project_id)
     if not project or user_id!=project["owner_id"]:
         flash("action not allowed")
@@ -111,7 +113,7 @@ def edit_prj(project_id):
         else:
             flash("Invalid input")
             return redirect(f"/project/edit/{project_id}")
-    return render_template("edit_project.html",project=project)
+    return render_template("edit_project.html",project=project,next_page=next_page)
 @project_bp.route("/personal")
 @login_required
 def view_myproject():

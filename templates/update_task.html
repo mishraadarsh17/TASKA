@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<a href="{{ request.referrer }}" class="back-link">
+<a href="/task/details/{{ task['id'] }}?next={{ next_page }}" class="back-link">
     ← Back
 </a>
 <div class="form-page">
@@ -18,13 +18,13 @@
             <div class="form-group">
                 <label>Title</label>
 
-                <input type="text" name="title" value="{{ task['title'] }}" required>
+                <input type="text" name="title" value="{{ task['title'] }}" {% if assigned_only %}disabled{% endif %} required>
             </div>
 
             <div class="form-group">
                 <label>Description</label>
 
-                <textarea name="description" rows="6">{{ task['description'] }}</textarea>
+                <textarea name="description" {% if assigned_only %}disabled{% endif %} rows="6">{{ task['description'] }}</textarea>
             </div>
 
             <div class="row-2">
@@ -33,7 +33,7 @@
 
                     <label>Status</label>
 
-                    <select name="status">
+                    <select name="status" >
 
                         <option value="Pending" {% if task['status']=="Pending" %}selected{% endif %}>
                             Pending
@@ -59,7 +59,7 @@
 
                     <label>Priority</label>
 
-                    <select name="priority">
+                    <select name="priority" {% if assigned_only %}disabled{% endif %}>
 
                         <option value="Low" {% if task['priority']=="Low" %}selected{% endif %}>
                             Low
@@ -85,7 +85,7 @@
 
                 <label>Assign Member</label>
 
-                <select name="member_id">
+                <select name="member_id" {% if assigned_only %}disabled{% endif %}>
 
                     <option value="">select</option>
                     {% for member in members %}
@@ -105,7 +105,7 @@
 
                 <label>Due Date</label>
 
-                <input type="date" name="due_date" value="{{ task['due_date'] }}">
+                <input type="date" name="due_date" value="{{ task['due_date'] }}" {% if assigned_only %}disabled{% endif %}>
 
             </div>
 

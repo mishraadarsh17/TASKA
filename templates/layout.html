@@ -13,7 +13,7 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-top">
             <div class="sidebar-header">
-                <h1>TASKA</h1>
+                <h1>TASKA </h1>
             </div>
             <form action="/task/search" class="search-form">
                 <input type="text" name="query" placeholder="Search tasks...">
@@ -25,13 +25,13 @@
         </div>
         <div class="sidebar-menu">
             <a href="/dashboard" class="{% if request.path == '/dashboard' %}active{% endif %}"
-                style="margin-bottom:10px;font-size:16px; margin-left: -10px;color: white;">
-                <h3>⛶ Dashboard</h3>
+                style="margin-bottom:10px;font-size:16px; margin-left: -10px;">
+                <h3 style="color: white;">⛶ Dashboard</h3>
             </a>
 
             <h3>🗁 Projects</h3>
 
-            <a href="/project/create" class="{% if request.path == '/project/create' %}active{% endif %}">+Create
+            <a href="/project/create" class="{% if request.path == '/project/create' %}active{% endif %}" >+Create
                 Project</a>
             <a href="/project/personal" class="{% if request.path == '/project/personal' %}active{% endif %}">My
                 Projects</a>

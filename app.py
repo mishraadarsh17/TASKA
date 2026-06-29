@@ -33,7 +33,9 @@ def dashboard():
     total_completed_task = total_tasks(user_id)
     total_task_number=total_personal_task+total_assigned_task
     my_recent_tasks=recent_tasks(user_id,user_id)
-    return render_template("dashboard.html",total_project=total_project,total_personal_task=total_personal_task,total_assigned_task=total_assigned_task,total_pending_task=total_pending_task,total_completed_task=total_completed_task,my_recent_tasks=my_recent_tasks,total_task_number=total_task_number,username=user_name)
+    new_user = (total_project == 0 and total_task_number == 0)
+
+    return render_template("dashboard.html",total_project=total_project,total_personal_task=total_personal_task,total_assigned_task=total_assigned_task,total_pending_task=total_pending_task,total_completed_task=total_completed_task,my_recent_tasks=my_recent_tasks,total_task_number=total_task_number,username=user_name,new_user=new_user)
 
 @app.errorhandler(404)
 def page_not_found(error):

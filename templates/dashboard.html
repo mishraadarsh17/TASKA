@@ -55,7 +55,37 @@
     </div>
 
 </div>
+{% if new_user %}
+<div class="getting-started-card">
 
+    <h2>🚀 Getting Started</h2>
+
+    <p>
+        Welcome to TASKA! Your workspace is empty.
+        Create your first project or personal task to begin managing your work.
+    </p>
+
+    <div class="getting-started-actions">
+
+        <a href="/project/create" class="start-btn">
+            + Create Project
+        </a>
+
+        <a href="/task/create/personal" class="start-btn secondary">
+            + Create Task
+        </a>
+
+    </div>
+
+    <div class="getting-started-tip">
+
+        💡 <strong>Tip:</strong>
+        Use the ☰ menu to explore Projects and Tasks.
+
+    </div>
+
+</div>
+{% endif %}
 <div class="dashboard-grid">
 
     <div class="card">

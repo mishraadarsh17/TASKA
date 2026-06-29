@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<a href="{{ request.referrer }}" class="back-link">
+<a href="/project/detailes/{{ project['id'] }}?next={{ next_page }}" class="back-link">
     ← Back
 </a>
 

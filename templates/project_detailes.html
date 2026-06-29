@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<a href="{{ request.referrer }}" class="back-link">
+<a href="{{next_page}}" class="back-link">
     ← Back
 </a>
 
@@ -32,7 +32,7 @@
                 + Create Task
             </a>
 
-            <a href="/project/edit/{{project['id']}}">
+            <a href="/project/edit/{{project['id']}}?next={{ next_page }}">
                 Edit Project
             </a>
 

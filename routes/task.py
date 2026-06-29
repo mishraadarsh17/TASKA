@@ -57,12 +57,15 @@ def delete_task(task_id):
 @login_required
 def update_task(task_id):
     user_id=session["user_id"]
+    next_page = request.args.get("next", "/project/personal")
     task=get_task_by_id(task_id)
     if not task:
         flash("task not found")
         return redirect("/")
-    if user_id==task["assigned_to"]:
-        flash("Only Status Update Allowed")
+    if user_id != task["created_by"] and user_id != task["assigned_to"]:
+        flash("Access denied.")
+        return redirect(next_page)
+    assigned_only = (user_id == task["assigned_to"] and user_id != task["created_by"])
     if request.method=="POST":
         title=request.form.get("title","").strip()
         description=request.form.get("description","").strip()
@@ -73,24 +76,39 @@ def update_task(task_id):
         member_id=request.form.get("member_id","").strip()
         if not member_id:
             member_id=None
-        if title and priority and status and len(title)<50 and len(description)<500 and status  in valid_status and priority  in valid_priority:
-            updated=update(user_id,task_id,title,description,priority,status,due_date,member_id,now)
-            if updated:
-                flash("task updated successfully")
-            else:
-                flash("action not allowed")
-            if task["project_id"] is None:
-                return redirect(f"/task/details/{task_id}")
-            else:
-                return redirect(f"/project/detailes/{task['project_id']}")
+        if assigned_only:
+            if status in valid_status:
+                if status in valid_status:
+                    updated = update(user_id,task_id,"","","",status,"",None,now)
+                    if updated:
+                        flash("task updated successfully")
+                    else:
+                        flash("action not allowed")
+                    if task["project_id"] is None:
+                        return redirect(f"/task/details/{task_id}")
+                    else:
+                        return redirect(f"/project/detailes/{task['project_id']}")
+                else:
+                    flash("Invalid status.")
+                    return redirect(f"/task/update/{task_id}")
         else:
-            flash("invalid input")
-            if task["project_id"] is None:
-                return redirect("/")
+            if title and priority and status and len(title)<50 and len(description)<500 and status  in valid_status and priority  in valid_priority:
+                updated=update(user_id,task_id,title,description,priority,status,due_date,member_id,now)
+                if updated:
+                    flash("task updated successfully")
+                else:
+                    flash("action not allowed")
+                if task["project_id"] is None:
+                    return redirect(f"/task/details/{task_id}")
+                else:
+                    return redirect(f"/project/detailes/{task['project_id']}")
             else:
-                return redirect(f"/project/detailes/{task['project_id']}")
+                flash("invalid input")
+                return redirect(f"/task/update/{task_id}")
     members=get_project_members(task['project_id'])
-    return render_template("update_task.html",task=task,members=members)
+    if assigned_only:
+        flash("You can only update the task status.")
+    return render_template("update_task.html",task=task,members=members,next_page=next_page,assigned_only=assigned_only)
 @task_bp.route("/create/personal",methods=['GET','POST'])
 @login_required
 def create_task_personal():

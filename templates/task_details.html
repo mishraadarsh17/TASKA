@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<a href="{{ request.referrer }}" class="back-link">
+<a href="{{ next_page}}" class="back-link">
     ← Back
 </a>
 
@@ -70,7 +70,7 @@
 
     <div class="task-buttons">
 
-        <a href="/task/update/{{task['id']}}">
+        <a href="/task/update/{{task['id']}}?next={{ next_page }}">
             Update
         </a>
         

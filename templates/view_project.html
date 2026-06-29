@@ -18,7 +18,7 @@
 
 {% for project in projects %}
 
-<a href="/project/detailes/{{ project['id'] }}"
+<a href="/project/detailes/{{ project['id'] }}?next={{ request.path }}"
    class="project-list-link">
 
     <div class="project-list-card">
