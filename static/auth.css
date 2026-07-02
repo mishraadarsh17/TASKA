@@ -19,7 +19,9 @@ body{
     background:var(--bg);
     color:var(--text);
 
-    min-height:100vh;
+    height:100vh;
+    height:100dvh;
+    
 
     display:flex;
     justify-content:center;
@@ -32,13 +34,15 @@ body{
 
     width:100%;
     max-width:1100px;
-
+    height: 100vh;
+    height: 100dvh;
     display:grid;
     grid-template-columns:1fr 480px;
 
     gap:60px;
 
     align-items:center;
+    
 }
 
 .auth-left h1{
@@ -60,6 +64,8 @@ body{
     line-height:1.7;
     max-width:430px;
 }
+
+
 
 .auth-card{
 
@@ -186,15 +192,32 @@ button:hover{
 }
 
 @media(max-width:900px){
+    body{
+        justify-content:flex-start;
+        align-items:flex-start;
 
+        padding:40px 20px;
+
+        min-height:100vh;
+        min-height:100dvh;
+    }
     .auth-container{
 
+        /* grid-template-columns:1fr; */
+         min-height:auto;
+
+        margin:0 auto;
+
         grid-template-columns:1fr;
+
+        gap:30px;
+
+        align-items:start;
     }
 
     .auth-left{
 
-        text-align:center;
+        text-align:start;
     }
 
     .auth-left p{
@@ -238,9 +261,7 @@ button:hover{
     padding:30px 24px;
 }
 }
-body{
-    overflow-x:hidden;
-}
+
 
 .auth-container{
     width:100%;
@@ -250,4 +271,28 @@ body{
 .auth-left,
 .auth-card{
     min-width:0;
+}
+@media (max-width:480px){
+    body{
+        padding:20px 16px;
+        
+    }
+
+    .auth-left h1{
+        display: none;
+    }
+
+    .auth-left h2{
+        font-size:22px;
+        margin-bottom:8px;
+    }
+
+    .auth-left p{
+        font-size:16px;
+        margin-bottom:0;
+    }
+
+    .auth-card{
+        padding:18px 18px;
+    }
 }

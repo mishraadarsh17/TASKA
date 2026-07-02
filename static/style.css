@@ -75,6 +75,7 @@ body {
 
     width: 270px;
     height: 100vh;
+    height: 100dvh;
 
     background: var(--sidebar-bg);
 
@@ -463,6 +464,7 @@ summary:hover {
         padding-top: 55px;
         
     }
+
 
     .sidebar-menu {
         padding-top: 0px;
